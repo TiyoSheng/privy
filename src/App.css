@@ -11,17 +11,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
 }
 
 .App {
   min-height: 100vh;
-  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  width: 100vw;
 }
 
 /* 加载状态 */
@@ -85,9 +84,21 @@ body {
   color: white;
 }
 
+.login-btn.secondary {
+  background: #f8f9fa;
+  color: #333;
+  border: 2px solid #e1e5e9;
+}
+
 .login-btn.primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.login-btn.secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
 }
 
 .login-btn:disabled {
@@ -257,6 +268,331 @@ body {
 .logout-btn:hover {
   background: #c82333;
   transform: translateY(-1px);
+}
+
+/* 钱包模态框样式 */
+.wallet-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #1E1F20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.wallet-modal {
+  background: #1a1b1e;
+  border-radius: 20px;
+  width: 100%;
+  width: 400px;
+  padding: 40px;
+  position: relative;
+  animation: modalSlideIn 0.3s ease;
+  border: 1px solid #333;
+  box-sizing: border-box;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Logo Header */
+.wallet-modal-header {
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.wallet-modal-header svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Email Section */
+.wallet-modal-email {
+  margin-bottom: 24px;
+}
+
+.email-input-container {
+  display: flex;
+  align-items: center;
+  background: #1E1F20;
+  border: 1px solid #1E1F20;
+  border-radius: 12px;
+  padding: 0 16px;
+  gap: 8px;
+  height: 56px;
+  box-sizing: border-box;
+  outline: #A236FF;
+}
+
+.email-icon {
+  font-size: 0;
+}
+
+.email-input-modal {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 12px 8px;
+  outline: none;
+}
+
+.email-input-modal::placeholder {
+  color: #9ca3af;
+}
+
+.submit-btn {
+  color: #A236FF;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Modal Divider */
+.modal-divider {
+  position: relative;
+  text-align: center;
+  margin: 32px 0;
+}
+
+.modal-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #333;
+}
+
+.modal-divider span {
+  display: inline-block;
+  background: #1a1b1e;
+  padding: 0 16px;
+  color: #9ca3af;
+  font-size: 14px;
+  z-index: 10;
+  position: relative;
+  top: -1px;
+}
+
+/* Wallet Options */
+.wallet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.wallet-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #1E1F20;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  height: 56px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.wallet-option:hover {
+  background: #2a2b2f;
+  transform: translateY(-1px);
+}
+
+.wallet-icon {
+  font-size: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.wallet-icon img {
+  width: 100%;
+}
+
+.wallet-name {
+  flex: 1;
+}
+
+/* Modal Footer */
+.wallet-modal-footer {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.wallet-modal-footer strong {
+  color: white;
+}
+
+/* 验证码确认模态框样式 */
+.code-verification-modal {
+  text-align: center;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.back-btn,
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.back-btn {
+  position: relative;
+  top: -16px;
+  left: -16px;
+}
+
+.close-btn {
+  position: relative;
+  top: -16px;
+  right: -16px;
+}
+
+.verification-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.verification-title {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.verification-description {
+  color: #9ca3af;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.code-inputs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.code-input-field {
+  width: 48px;
+  height: 56px;
+  background: #2d2f36;
+  border: 2px solid #333;
+  border-radius: 12px;
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.code-input-field:focus {
+  border-color: #A236FF;
+}
+
+.code-input-field.filled {
+  border-color: #A236FF;
+  background: #A236FF20;
+}
+
+.code-input-field.active {
+  border-color: #A236FF;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    border-color: #A236FF;
+  }
+  50% {
+    border-color: #8b2bd9;
+  }
+}
+
+.resend-section {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.resend-text {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.resend-btn {
+  background: none;
+  border: none;
+  color: #A236FF;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.resend-btn:hover {
+  color: #8b2bd9;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .login-container,
+  .user-info {
+    padding: 24px;
+    margin: 16px;
+  }
+  
+  .input-group,
+  .code-input-group {
+    flex-direction: column;
+  }
+  
+  .send-code-btn,
+  .verify-btn {
+    width: 100%;
+  }
+
+  .wallet-modal {
+    padding: 24px;
+    margin: 16px;
+  }
+
+  .wallet-modal-header svg {
+    width: 300px;
+  }
 }
 
 
