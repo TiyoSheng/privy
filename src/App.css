@@ -5,6 +5,96 @@
   box-sizing: border-box;
 }
 
+/* Header Styles */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(26, 27, 30, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #333;
+  z-index: 100;
+  padding: 16px 0;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-left svg {
+  height: 32px;
+  width: auto;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Connect Button */
+.connect-btn {
+  background: #A236FF;
+  color: #0b0d0e;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 48px;
+  min-width: 120px;
+}
+
+.connect-btn:hover {
+  background: #8b2bd9;
+  transform: translateY(-1px);
+}
+
+/* Header Icons */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.icon-btn:hover {
+  background: #2a2b2f;
+}
+
+.icon-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -17,10 +107,18 @@ body {
 .App {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
+  padding-top: 80px; /* 为固定header留出空间 */
+  width: 100vw;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex: 1;
   padding: 20px;
-  width: 100vw;
 }
 
 /* 加载状态 */
@@ -281,7 +379,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 4;
   padding: 20px;
 }
 
@@ -290,7 +388,7 @@ body {
   border-radius: 20px;
   width: 100%;
   width: 400px;
-  padding: 40px;
+  padding: 40px 24px;
   position: relative;
   animation: modalSlideIn 0.3s ease;
   border: 1px solid #333;
@@ -450,9 +548,9 @@ body {
 }
 
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 32px;
+  position: absolute;
+  right: 24px;
+  top: 24px;
 }
 
 .back-btn,
@@ -567,6 +665,279 @@ body {
   color: #8b2bd9;
 }
 
+/* Error Message */
+.error-message {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid #dc2626;
+  color: #fca5a5;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Network Selector */
+.network-selector {
+  margin-bottom: 24px;
+}
+
+/* Compact Network Selector for Header */
+.network-selector-compact {
+  position: relative;
+}
+
+.network-dropdown {
+  position: relative;
+}
+
+.network-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #080809;
+  border: 1px solid #2d3033;
+  border-radius: 6px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  height: 48px;
+  min-width: 140px;
+}
+
+.network-dropdown-trigger:hover {
+  background: #2a2b2f;
+  border-color: #A236FF;
+}
+
+.dropdown-arrow {
+  font-size: 10px;
+  color: #9ca3af;
+  transition: transform 0.3s ease;
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-arrow img {
+  width: 100%;
+  height: 100%;
+  filter: invert(1);
+}
+
+.network-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #080809;
+  border: 1px solid #2d3033;
+  border-radius: 12px;
+  padding: 12px;
+  min-width: 320px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  z-index: 1001;
+  animation: dropdownSlideIn 0.2s ease;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dropdown overlay to close when clicking outside */
+.network-dropdown-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+/* Network category title */
+.network-category-title {
+  color: #2b2f33;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  margin-bottom: 8px;
+  padding: 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.network-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+  width: 100%;
+  position: relative;
+}
+
+.network-dropdown-item:hover {
+  background: #1f2124;
+}
+
+.network-dropdown-item.selected {
+  background: rgba(162, 54, 255, 0.1);
+}
+
+/* Network divider between EVM and other networks */
+.network-divider {
+  height: 1px;
+  background: #1f2124;
+  margin: 8px 0;
+}
+
+/* Network icon styling */
+.network-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.network-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.network-emoji {
+  font-size: 20px;
+}
+
+/* Check icon for selected network */
+.network-check {
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.network-check img {
+  width: 100%;
+  height: 100%;
+}
+
+.network-title {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.network-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.network-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #1E1F20;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.network-option:hover {
+  background: #2a2b2f;
+  border-color: #A236FF;
+}
+
+.network-option.selected {
+  background: #A236FF20;
+  border-color: #A236FF;
+}
+
+.network-info {
+  flex: 1;
+}
+
+.network-name {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.network-description {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* Wallet Loading and Error States */
+.wallet-loading,
+.wallet-error,
+.no-wallets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.wallet-loading .spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(156, 163, 175, 0.3);
+  border-top: 2px solid #9ca3af;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+.wallet-error {
+  color: #fca5a5;
+}
+
+.no-wallets p {
+  font-size: 14px;
+  margin-top: 8px;
+  opacity: 0.7;
+}
+
 /* 响应式设计 */
 @media (max-width: 480px) {
   .login-container,
@@ -593,6 +964,526 @@ body {
   .wallet-modal-header svg {
     width: 300px;
   }
+
+  .network-dropdown-menu {
+    right: 0;
+    min-width: 280px;
+  }
+}
+
+/* 等待连接弹窗样式 */
+.connecting-modal {
+  text-align: center;
+}
+
+.connecting-wallet-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.wallet-icon-ring {
+  width: 120px;
+  height: 120px;
+  border: 3px solid #A236FF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: ringPulse 2s ease-in-out infinite;
+}
+
+.wallet-icon-inner {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1E1F20;
+  border-radius: 50%;
+}
+
+.wallet-icon-inner img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.wallet-icon-inner .wallet-emoji {
+  font-size: 32px;
+}
+
+@keyframes ringPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.connecting-title {
+  margin-bottom: 16px;
+}
+
+.connecting-title h2 {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.connecting-description {
+  margin-bottom: 40px;
+}
+
+.connecting-description p {
+  color: #9ca3af;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.connecting-actions {
+  margin-bottom: 24px;
+}
+
+.connecting-btn {
+  background: #A236FF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  opacity: 0.8;
+  cursor: default;
+}
+
+/* 签名页面样式 */
+.signature-modal {
+  text-align: left;
+}
+
+.signature-title {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.signature-title h2 {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.signature-intro {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.signature-intro p {
+  color: #9ca3af;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.signature-steps {
+  background: #1E1F20;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.step-item:last-child {
+  margin-bottom: 0;
+}
+
+.step-number {
+  width: 24px;
+  height: 24px;
+  background: #A236FF;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.step-content {
+  text-align: left;
+}
+
+.step-content h3 {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  text-align: left;
+}
+
+.step-content p {
+  color: #9ca3af;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.signature-actions {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.confirm-btn {
+  background: #A236FF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.confirm-btn:hover:not(:disabled) {
+  background: #8b2bd9;
+  transform: translateY(-1px);
+}
+
+.confirm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.signature-success {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.success-icon {
+  width: 48px;
+  height: 48px;
+  background: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+}
+
+.signature-success h3 {
+  color: #10b981;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.signature-success p {
+  color: #9ca3af;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.signature-preview {
+  background: #1E1F20;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+  text-align: left;
+}
+
+.signature-label {
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.signature-text {
+  color: white;
+  font-size: 12px;
+  font-family: monospace;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+/* 登录成功页面样式 */
+.login-success-modal {
+  text-align: center;
+}
+
+.success-icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.success-title {
+  margin-bottom: 16px;
+}
+
+.success-title h2 {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.success-description {
+  margin-bottom: 32px;
+}
+
+.success-description p {
+  color: #9ca3af;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wallet-info-section {
+  margin-bottom: 24px;
+}
+
+.wallet-info-card {
+  background: #1E1F20;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+}
+
+.wallet-info-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.wallet-icon-small {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wallet-icon-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.wallet-icon-small .wallet-emoji {
+  font-size: 24px;
+}
+
+.wallet-details h3 {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.network-badge {
+  background: #A236FF;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.address-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.address-label {
+  color: #9ca3af;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.address-value {
+  color: white;
+  font-size: 14px;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.primary-action-btn {
+  background: #A236FF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.primary-action-btn:hover {
+  background: #8b2bd9;
+  transform: translateY(-1px);
+}
+
+.secondary-action-btn {
+  background: transparent;
+  color: #9ca3af;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.secondary-action-btn:hover {
+  background: #1E1F20;
+  border-color: #A236FF;
+  color: white;
+}
+
+/* 签名按钮和结果显示样式 */
+.signature-section {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.sign-btn {
+  background: #A236FF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.sign-btn:hover:not(:disabled) {
+  background: #8b2bd9;
+  transform: translateY(-1px);
+}
+
+.sign-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.signature-result {
+  background: #1E1F20;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+}
+
+.signature-result h4 {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.signature-result .signature-text {
+  color: #9ca3af;
+  font-size: 12px;
+  font-family: monospace;
+  word-break: break-all;
+  line-height: 1.4;
+  margin: 0;
+  background: #080809;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #333;
 }
 
 
